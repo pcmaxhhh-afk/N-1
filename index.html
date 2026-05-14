@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor ❤️</title>
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --hot-pink: #d81b60;
+            --soft-pink: #ffccff;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; font-family: 'Arial', sans-serif;
+            background-color: var(--soft-pink);
+            touch-action: manipulation; /* Optimiza toques en móvil */
+        }
+
+        /* --- PORTADA --- */
+        #portada {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 1000; background-color: var(--soft-pink);
+        }
+
+        .portada-title {
+            color: var(--hot-pink); font-size: clamp(1.5rem, 8vw, 2.5rem);
+            margin-bottom: 30px; text-align: center; padding: 0 20px;
+        }
+
+        .btn-retro {
+            background-color: white; border: 2px solid var(--hot-pink);
+            color: var(--hot-pink); padding: 15px 30px; font-size: 1rem;
+            margin: 10px; cursor: pointer; border-radius: 50px;
+            font-weight: bold; width: min(250px, 80%);
+            box-shadow: 0 4px 0px #c2185b;
+        }
+
+        /* --- CARTA --- */
+        #carta {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); background: white;
+            padding: 20px; width: 85%; max-width: 380px;
+            border-radius: 20px; border: 3px solid #f48fb1;
+            z-index: 2000; text-align: center;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+        }
+
+        .foto-carta {
+            width: 100%; max-width: 180px; border-radius: 15px;
+            margin: 10px 0; border: 2px solid var(--soft-pink);
+        }
+
+        /* --- ESCENARIO NEÓN --- */
+        #neon-stage {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background-color: #000; z-index: 500;
+        }
+
+        .grid-container {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(0deg, rgba(0,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        #neon-text-container {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 600;
+            text-align: center; width: 100%; pointer-events: none;
+        }
+
+        .neon-text-base {
+            color: #fff; font-size: clamp(1.1rem, 5vw, 2rem); font-weight: 900;
+            text-transform: uppercase; text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* --- ANIMACIÓN CSS (Hardware Accelerated) --- */
+        .zoom-item {
+            position: absolute; top: 50%; left: 50%;
+            will-change: transform, opacity; /* Aviso al navegador para optimizar */
+            animation: zoomFly 3s linear forwards;
+            pointer-events: none;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        @keyframes zoomFly {
+            0% {
+                transform: translate(-50%, -50%) scale(0) translate(0, 0);
+                opacity: 0;
+            }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% {
+                /* El var(--tx) y var(--ty) se dan por JS aleatoriamente */
+                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(3);
+                opacity: 0;
+            }
+        }
+
+        #btn-volver {
+            position: absolute; top: 20px; right: 20px; z-index: 3000;
+            padding: 8px 15px; background: rgba(0,0,0,0.5); border: 1px solid var(--neon-pink);
+            color: var(--neon-pink); border-radius: 5px; font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="portada">
+        <h1 class="portada-title"> ❤️ un loco enamorado ❤️</h1>
+        <button class="btn-retro" onclick="abrirCarta()">❤️ Cartita</button>
+        <button class="btn-retro" onclick="abrirNeon()">❤️ sorpresa</button>
+    </div>
+
+    <div id="carta">
+        <h2 style="color: var(--hot-pink); margin-bottom: 5px;">Hola mi amor ❤️</h2>
+        <img src="https://i.postimg.cc/TYsrsmSf/IMG-20260320-205250-008.jpg" class="foto-carta">
+        <p style="font-size: 0.95rem;">Quería escribirte algo cortito, pero lleno de todo lo que siento por ti.</p>
+        <p>A veces nos perdemos en la rutina, pero cuando me detengo a pensar en nosotros, lo que más valoro es nuestro tiempo.
+        </p>
+<p>me encanta que seamos ese equipo que puede pasar horas jugando a las cartas o simplemente caminando sin rumbo hablando de todo y de nada. </p>
+<p>Gracias por tener esa paciencia infinita conmigo. Sé que a veces puedo ser un poco intenso cuando te interrumpo solo para recordarte que te amo, o cuando no dejo de llenarte de besos aunque estés distraída.
+Gracias por reirte de mis bromas tontas y por hacerme sentir que cada minuto a tu lado vale la pena. Eres mi lugar seguro y mi aventura favorita.</p>
+<p>Te amo mas de lo que las palabras pueden explicar</p>
+        <button class="btn-retro" style="width: 120px; padding: 10px;" onclick="cerrarTodo()">Cerrar</button>
+    </div>
+
+    <div id="neon-stage">
+        <button id="btn-volver" onclick="cerrarTodo()">Volver</button>
+        <div class="grid-container"></div>
+        <div id="zoom-layer"></div>
+        <div id="neon-text-container">
+            <h1 class="neon-text-base">TE AMO MUCHO JAZZ</h1>
+        </div>
+    </div>
+
+    <script>
+        const imagenesUrls = [
+            "https://i.postimg.cc/2SN1v6vZ/Encuentra-el-regalo-hecho-a-mano-perfecto-prendas-removebg-preview.png",
+            "https://i.postimg.cc/gJB2ScTQ/retouch-2026032018191540.png",
+            "https://i.postimg.cc/GhDmKCJJ/retouch-2026032018130123.png",
+            "https://i.postimg.cc/28WSGDF4/retouch-2026032018133312.png",
+            "https://i.postimg.cc/DfHz1Zsj/retouch-2026032018142587.png",
+            "https://i.postimg.cc/DfHz1ZsB/retouch-2026032018161589.png",
+            "https://i.postimg.cc/HWRLbx5S/retouch-2026032018180187.png"
+        ];
+
+        const frases = ["Te amo", "Mi vida", "Me encantas","cariño", "Eres unica", "Te quiero", "Mi todo", "sos tan Hermosa", "sos especial", "te extraño", "sos hermosa", "te amo",
+                       "sos divertida", "sos unica", "me encanta pasar tiempo con vos", "sos feliz con vos", "mi persona favorita", "mi mundo", "mi chica"];
+        const colores = ["#ff00ff", "#00ffff", "#00ff00", "#ffff00"];
+
+        function abrirCarta() { document.getElementById('carta').style.display = 'block'; }
+        function cerrarTodo() { location.reload(); }
+
+        function abrirNeon() {
+            document.getElementById('portada').style.display = 'none';
+            document.getElementById('neon-stage').style.display = 'block';
+            
+            // Generador de elementos con intervalo más relajado para móviles
+            setInterval(crearElementoZoom, 800); 
+        }
+
+        function crearElementoZoom() {
+            const layer = document.getElementById('zoom-layer');
+            const el = document.createElement('div');
+            el.className = 'zoom-item';
+
+            // Dirección aleatoria de salida
+            const angle = Math.random() * Math.PI * 2;
+            const dist = window.innerWidth > 600 ? 400 : 250; // Menos distancia en móvil
+            const tx = Math.cos(angle) * dist + "px";
+            const ty = Math.sin(angle) * dist + "px";
+            
+            el.style.setProperty('--tx', tx);
+            el.style.setProperty('--ty', ty);
+
+            if (Math.random() > 0.5) {
+                const img = imagenesUrls[Math.floor(Math.random() * imagenesUrls.length)];
+                el.innerHTML = `<img src="${img}" style="width: 80px; filter: drop-shadow(0 0 5px var(--neon-pink));">`;
+            } else {
+                const txt = frases[Math.floor(Math.random() * frases.length)];
+                const col = colores[Math.floor(Math.random() * colores.length)];
+                el.innerHTML = `<span style="color:${col}; font-weight:bold; text-shadow:0 0 8px ${col}; font-size:1.2rem; white-space:nowrap;">${txt}</span>`;
+            }
+
+            layer.appendChild(el);
+
+            // Limpieza automática para no saturar la memoria
+            setTimeout(() => { el.remove(); }, 3000);
+        }
+    </script>
+</body>
+</html>
